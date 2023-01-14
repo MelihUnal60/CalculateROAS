@@ -1,5 +1,7 @@
 ﻿// ROAS = (Reklam geliri / reklam maliyeti) x 100
 using CalculateROAS.Business;
+using System.ComponentModel;
+
 namespace CalculateROAS
 {
     public class Program
@@ -44,7 +46,19 @@ namespace CalculateROAS
 
         private static void Search()
         {
-            
+            Console.Write("Aranacak reklam kanalını girin : ");
+            var filterKey = Console.ReadLine();
+            var data = ROASService.SearchROAS(filterKey);
+
+            WriteFromROASList(data);
+        }
+
+        private static void WriteFromROASList(IReadOnlyCollection<ROAS> liste)
+        {
+            foreach(var item in liste)
+            {
+                WriteToScreen(item);
+            }
         }
 
         private static void NewRoas()
@@ -89,6 +103,8 @@ namespace CalculateROAS
                 WriteToScreen(x);
             }
         }
+        
+
     }
 
     
