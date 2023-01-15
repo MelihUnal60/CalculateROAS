@@ -23,12 +23,14 @@ namespace CalculateROAS.Business
         }
         public static IReadOnlyCollection<ROAS> GetROASList() // roas listesinin sadece okunabilir bir kopyası oluşturulur. Diğer metodların içinde bu kopya üzerinde işlem yapılamaz.
         {
-
+            
             string json = FileOperations.Read();
-
-            liste = JsonSerializer.Deserialize<List<ROAS>>(json, new JsonSerializerOptions { IncludeFields = true });
-
-            return liste.AsReadOnly(); //sadece okunabilir koleksiyon
+            if (!string.IsNullOrEmpty(json))
+            {
+                liste = JsonSerializer.Deserialize<List<ROAS>>(json, new JsonSerializerOptions { IncludeFields = true });
+            }
+                return liste.AsReadOnly(); //sadece okunabilir koleksiyon
+            
         }
         public static IReadOnlyCollection<ROAS> SearchROAS(string reklamKanali)
         {
